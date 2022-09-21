@@ -32,17 +32,17 @@ class MainActivity : AppCompatActivity() {
     fun getAllNote(){
         GlobalScope.launch {
             var db = noteDB!!.noteDAO().getDataNote()
-            adapterNote = NoteAdapter(db)
-            binding.rvNote.layoutManager = LinearLayoutManager(applicationContext,LinearLayoutManager.VERTICAL,false)
-            binding.rvNote.adapter = adapterNote
+//            adapterNote = NoteAdapter(db)
+//            binding.rvNote.layoutManager = LinearLayoutManager(applicationContext,LinearLayoutManager.VERTICAL,false)
+//            binding.rvNote.adapter = adapterNote
 
-//            runOnUiThread{
-//                db.let {
-//                    adapterNote = NoteAdapter(it)
-//                    binding.rvNote.layoutManager = LinearLayoutManager(applicationContext,LinearLayoutManager.VERTICAL,false)
-//                    binding.rvNote.adapter = adapterNote
-//                }
-//            }
+            runOnUiThread{
+                db.let {
+                    adapterNote = NoteAdapter(it)
+                    binding.rvNote.layoutManager = LinearLayoutManager(applicationContext,LinearLayoutManager.VERTICAL,false)
+                    binding.rvNote.adapter = adapterNote
+                }
+            }
         }
     }
 

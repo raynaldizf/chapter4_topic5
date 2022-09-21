@@ -14,5 +14,5 @@ interface NoteDAO {
     fun getDataNote() : List<DataNote>
 
     @Delete
-    fun deleteNote(note : DataNote)
+    fun deleteNote(note : DataNote) : Int
 }

@@ -1,7 +1,9 @@
 package com.example.chapter4_topic5
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.chapter4_topic5.databinding.ItemNotesBinding
 import com.example.chapter4_topic5.room.DataNote
@@ -26,8 +28,20 @@ class NoteAdapter(var listNote : List<DataNote>) : RecyclerView.Adapter<NoteAdap
         holder.binding.deleteNote.setOnClickListener{
             dbNote = NoteDatabase.getInstance(it.context)
 
-            GlobalScope.async {
-                dbNote?.noteDAO()?.deleteNote(listNote[position])
+            GlobalScope.async{
+                val del = dbNote?.noteDAO()?.deleteNote(listNote[position])
+                (holder.itemView.context as MainActivity).getAllNote()
+
+                (holder.itemView.context as MainActivity).runOnUiThread {
+                    if (del != 0){
+                        Toast.makeText(it.context,"Data ${listNote[position].id } Success Deleted",Toast.LENGTH_SHORT).show()
+                        (holder.itemView.context as MainActivity).getAllNote()
+
+                    }else{
+                        Toast.makeText(it.context,"Data ${listNote[position].id } Failed to Delete",Toast.LENGTH_SHORT).show()
+
+                    }
+                }
             }
         }
     }
